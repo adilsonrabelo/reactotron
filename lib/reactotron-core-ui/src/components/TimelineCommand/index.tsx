@@ -7,6 +7,7 @@ import {
 } from "react-icons/md"
 
 import ActionButton from "../ActionButton"
+import StatusCodeTag from "../StatusCodeTag"
 import Timestamp from "../Timestamp"
 
 interface ContainerProps {
@@ -138,8 +139,9 @@ const TimelineCommand: React.FC<React.PropsWithChildren<Props>> = ({
                 <TagIcon size={16} />
               </TagContainer>
             )}
-            {title} {responseStatusCode ? `(${responseStatusCode})` : ""}
+            {title}
           </TitleText>
+          {!!responseStatusCode && <StatusCodeTag statusCode={responseStatusCode} />}
         </TitleContainer>
         {!isOpen && <PreviewContainer>{preview}</PreviewContainer>}
         {isOpen && toolbar && (

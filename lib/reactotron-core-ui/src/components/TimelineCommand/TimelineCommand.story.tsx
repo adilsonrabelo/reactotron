@@ -86,6 +86,58 @@ export const TaggedImportant = () => (
   </TimelineCommand>
 )
 
+export const WithStatusCodeSuccess = () => (
+  <TimelineCommand
+    date={new Date("2019-01-01T10:32:43.435")}
+    title="API RESPONSE"
+    preview="GET /api/v1/me/loyalty"
+    responseStatusCode={200}
+    isOpen={false}
+    setIsOpen={() => {}}
+  >
+    You should not see me.
+  </TimelineCommand>
+)
+
+export const WithStatusCodeRedirect = () => (
+  <TimelineCommand
+    date={new Date("2019-01-01T10:32:43.435")}
+    title="API RESPONSE"
+    preview="GET /api/v1/me/loyalty"
+    responseStatusCode={301}
+    isOpen={false}
+    setIsOpen={() => {}}
+  >
+    You should not see me.
+  </TimelineCommand>
+)
+
+export const WithStatusCodeClientError = () => (
+  <TimelineCommand
+    date={new Date("2019-01-01T10:32:43.435")}
+    title="API RESPONSE"
+    preview="GET /api/v1/me/loyalty"
+    responseStatusCode={404}
+    isOpen={false}
+    setIsOpen={() => {}}
+  >
+    You should not see me.
+  </TimelineCommand>
+)
+
+export const WithStatusCodeServerError = () => (
+  <TimelineCommand
+    date={new Date("2019-01-01T10:32:43.435")}
+    title="API RESPONSE"
+    preview="GET /api/v1/me/loyalty"
+    responseStatusCode={500}
+    isOpen={false}
+    setIsOpen={() => {}}
+  >
+    You should not see me.
+  </TimelineCommand>
+)
+
 export const Interactive = () => {
   const isOpen = boolean("isOpen", false)
 

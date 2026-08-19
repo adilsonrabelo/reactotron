@@ -26,6 +26,11 @@ interface ReactotronTheme {
   tag: string
   tagComplement: string
   warning: string
+  statusSuccess: string
+  statusRedirect: string
+  statusClientError: string
+  statusServerError: string
+  statusDefault: string
 }
 
 const colorSchemes = ["dark", "light"] as const
@@ -62,6 +67,11 @@ const themes: Record<ColorScheme, ReactotronTheme> = {
     tag: "#cf6a4c",
     tagComplement: "hsl(13.699999999999989, 57.7%, 91.6%)",
     warning: "#9b703f",
+    statusSuccess: "#4caf50",
+    statusRedirect: "#4a90d2",
+    statusClientError: "#e0a030",
+    statusServerError: "#e0525a",
+    statusDefault: "#7a7a7a",
   },
   light: {
     fontFamily:
@@ -92,6 +102,11 @@ const themes: Record<ColorScheme, ReactotronTheme> = {
     tag: "#d9484f",
     tagComplement: "hsl(13.7, 57.7%, 45%)",
     warning: "#b35900",
+    statusSuccess: "#2e7d32",
+    statusRedirect: "#1565c0",
+    statusClientError: "#b26a00",
+    statusServerError: "#c62828",
+    statusDefault: "#666666",
   },
 }
 

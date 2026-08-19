@@ -9,6 +9,7 @@ import Header from "./components/Header"
 import Modal from "./components/Modal"
 import RandomJoke from "./components/RandomJoke"
 import ReactotronAppProvider from "./components/ReactotronAppProvider"
+import StatusCodeTag from "./components/StatusCodeTag"
 import TimelineCommand from "./components/TimelineCommand"
 import TimelineCommandTabButton from "./components/TimelineCommandTabButton"
 import Timestamp from "./components/Timestamp"
@@ -57,6 +58,7 @@ export {
   SnapshotRenameModal,
   StateContext,
   StateProvider,
+  StatusCodeTag,
   SubscriptionAddModal,
   themes,
   TimelineCommand,
