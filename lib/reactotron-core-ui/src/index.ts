@@ -35,7 +35,7 @@ import timelineCommandResolver from "./timelineCommands"
 
 // Utils
 import repairSerialization from "./utils/repair-serialization"
-import filterCommands from "./utils/filterCommands"
+import filterCommands, { getAvailableStatusCategories } from "./utils/filterCommands"
 
 export {
   // Contexts
@@ -46,6 +46,7 @@ export {
   DispatchActionModal,
   EmptyState,
   filterCommands,
+  getAvailableStatusCategories,
   Header,
   Modal,
   RandomJoke,

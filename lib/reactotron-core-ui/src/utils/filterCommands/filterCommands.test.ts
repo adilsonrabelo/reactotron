@@ -1,4 +1,9 @@
-import filterCommands, { filterSearch, filterHidden } from "./index"
+import filterCommands, {
+  filterSearch,
+  filterHidden,
+  filterStatusCategory,
+  getAvailableStatusCategories,
+} from "./index"
 import { CommandType } from "reactotron-core-contract"
 
 const TEST_COMMANDS = [
@@ -236,6 +241,47 @@ describe("utils/filterCommands", () => {
       const result = filterCommands(TEST_COMMANDS, "", [CommandType.ClientIntro])
 
       expect(result).toEqual(TEST_COMMANDS.filter((tc) => tc.type !== CommandType.ClientIntro))
+    })
+  })
+
+  describe("getAvailableStatusCategories", () => {
+    it("should return an empty array when there are no API response commands", () => {
+      expect(getAvailableStatusCategories(TEST_COMMANDS)).toEqual([])
+    })
+
+    it("should return only the categories present, in success/redirect/clientError/serverError order", () => {
+      const commands = [
+        { type: CommandType.ApiResponse, payload: { response: { status: 500 } } },
+        { type: CommandType.ApiResponse, payload: { response: { status: 200 } } },
+        { type: CommandType.ApiResponse, payload: { response: { status: 201 } } },
+      ]
+
+      expect(getAvailableStatusCategories(commands)).toEqual(["success", "serverError"])
+    })
+  })
+
+  describe("filterStatusCategory", () => {
+    const API_COMMANDS = [
+      { type: CommandType.ApiResponse, payload: { response: { status: 200 } } },
+      { type: CommandType.ApiResponse, payload: { response: { status: 404 } } },
+      { type: CommandType.ApiResponse, payload: { response: { status: 500 } } },
+      { type: CommandType.Log, payload: { message: "not an api response" } },
+    ]
+
+    it("should return everything untouched when nothing is hidden", () => {
+      expect(filterStatusCategory(API_COMMANDS, [])).toEqual(API_COMMANDS)
+    })
+
+    it("should hide only api response commands in the given categories", () => {
+      const result = filterStatusCategory(API_COMMANDS, ["clientError", "serverError"])
+
+      expect(result).toEqual([API_COMMANDS[0], API_COMMANDS[3]])
+    })
+
+    it("should never hide non-api commands", () => {
+      const result = filterStatusCategory(API_COMMANDS, ["success", "clientError", "serverError"])
+
+      expect(result).toEqual([API_COMMANDS[3]])
     })
   })
 })

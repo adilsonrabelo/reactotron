@@ -5,6 +5,8 @@ import Modal from "../../components/Modal"
 import Checkbox from "../../components/Checkbox"
 import type { CommandTypeKey } from "reactotron-core-contract"
 import { CommandType } from "reactotron-core-contract"
+import { STATUS_CATEGORY_LABELS } from "../../components/StatusCodeTag"
+import type { StatusCategory } from "../../components/StatusCodeTag"
 
 const GROUPS = [
   {
@@ -58,6 +60,9 @@ interface Props {
   onClose: () => void
   hiddenCommands: CommandTypeKey[]
   setHiddenCommands: (hiddenCommands: CommandTypeKey[]) => void
+  availableStatusCategories: StatusCategory[]
+  hiddenStatusCategories: StatusCategory[]
+  setHiddenStatusCategories: (statusCategories: StatusCategory[]) => void
 }
 
 const TimelineFilterModal: FunctionComponent<Props> = ({
@@ -65,10 +70,14 @@ const TimelineFilterModal: FunctionComponent<Props> = ({
   onClose,
   hiddenCommands,
   setHiddenCommands,
+  availableStatusCategories,
+  hiddenStatusCategories,
+  setHiddenStatusCategories,
 }) => {
   const toggleAllOn = () => {
     // To turn everything on we need the list to be empty.
     setHiddenCommands([])
+    setHiddenStatusCategories([])
   }
 
   const toggleAllOff = () => {
@@ -78,6 +87,7 @@ const TimelineFilterModal: FunctionComponent<Props> = ({
         return [...itms, ...g.items.map((i) => i.value)]
       }, [])
     )
+    setHiddenStatusCategories(availableStatusCategories)
   }
 
   const buildCheckboxToggle = (value: CommandTypeKey) => {
@@ -88,6 +98,18 @@ const TimelineFilterModal: FunctionComponent<Props> = ({
         setHiddenCommands([...hiddenCommands, value])
       } else {
         setHiddenCommands([...hiddenCommands.filter((f) => f !== value)])
+      }
+    }
+  }
+
+  const buildStatusCategoryToggle = (category: StatusCategory) => {
+    const isSelected = hiddenStatusCategories.indexOf(category) === -1
+
+    return () => {
+      if (isSelected) {
+        setHiddenStatusCategories([...hiddenStatusCategories, category])
+      } else {
+        setHiddenStatusCategories([...hiddenStatusCategories.filter((f) => f !== category)])
       }
     }
   }
@@ -117,6 +139,24 @@ const TimelineFilterModal: FunctionComponent<Props> = ({
             </div>
           )
         })}
+        {availableStatusCategories.length > 0 && (
+          <div>
+            <GroupName>Status</GroupName>
+            {availableStatusCategories.map((category) => {
+              const isChecked = hiddenStatusCategories.indexOf(category) === -1
+              const onToggle = buildStatusCategoryToggle(category)
+
+              return (
+                <Checkbox
+                  key={category}
+                  label={STATUS_CATEGORY_LABELS[category]}
+                  onToggle={onToggle}
+                  isChecked={isChecked}
+                />
+              )
+            })}
+          </div>
+        )}
       </div>
     </Modal>
   )

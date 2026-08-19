@@ -12,6 +12,18 @@ export function getStatusCategory(statusCode?: number): StatusCategory {
   return "unknown"
 }
 
+// Ordered, filterable categories -- "unknown" is intentionally excluded since it
+// doesn't correspond to a real HTTP status range.
+export const STATUS_CATEGORIES: StatusCategory[] = ["success", "redirect", "clientError", "serverError"]
+
+export const STATUS_CATEGORY_LABELS: Record<StatusCategory, string> = {
+  success: "2xx",
+  redirect: "3xx",
+  clientError: "4xx",
+  serverError: "5xx",
+  unknown: "Unknown",
+}
+
 interface BadgeProps {
   $category: StatusCategory
 }

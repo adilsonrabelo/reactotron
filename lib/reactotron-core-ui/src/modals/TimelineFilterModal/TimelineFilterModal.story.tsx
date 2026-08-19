@@ -9,7 +9,27 @@ export default {
 }
 
 export const AllOn = () => (
-  <TimelineFilterModal isOpen onClose={() => {}} setHiddenCommands={() => {}} hiddenCommands={[]} />
+  <TimelineFilterModal
+    isOpen
+    onClose={() => {}}
+    setHiddenCommands={() => {}}
+    hiddenCommands={[]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
+  />
+)
+
+export const StatusFilter = () => (
+  <TimelineFilterModal
+    isOpen
+    onClose={() => {}}
+    setHiddenCommands={() => {}}
+    hiddenCommands={[]}
+    availableStatusCategories={["success", "redirect", "clientError", "serverError"]}
+    hiddenStatusCategories={["clientError", "serverError"]}
+    setHiddenStatusCategories={() => {}}
+  />
 )
 
 export const LogOff = () => (
@@ -18,6 +38,9 @@ export const LogOff = () => (
     onClose={() => {}}
     setHiddenCommands={() => {}}
     hiddenCommands={[CommandType.Log]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
   />
 )
 
@@ -27,6 +50,9 @@ export const ImageOff = () => (
     onClose={() => {}}
     setHiddenCommands={() => {}}
     hiddenCommands={[CommandType.Image]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
   />
 )
 
@@ -36,6 +62,9 @@ export const CustomDisplayOff = () => (
     onClose={() => {}}
     setHiddenCommands={() => {}}
     hiddenCommands={[CommandType.Display]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
   />
 )
 
@@ -45,6 +74,9 @@ export const ConnectionOff = () => (
     onClose={() => {}}
     setHiddenCommands={() => {}}
     hiddenCommands={[CommandType.ClientIntro]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
   />
 )
 
@@ -54,6 +86,9 @@ export const BenchmarkOff = () => (
     onClose={() => {}}
     setHiddenCommands={() => {}}
     hiddenCommands={[CommandType.Benchmark]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
   />
 )
 
@@ -63,6 +98,9 @@ export const APIOff = () => (
     onClose={() => {}}
     setHiddenCommands={() => {}}
     hiddenCommands={[CommandType.ApiResponse]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
   />
 )
 
@@ -72,6 +110,9 @@ export const MutationsOff = () => (
     onClose={() => {}}
     setHiddenCommands={() => {}}
     hiddenCommands={[CommandType.AsyncStorageMutation]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
   />
 )
 
@@ -81,6 +122,9 @@ export const ActionOff = () => (
     onClose={() => {}}
     setHiddenCommands={() => {}}
     hiddenCommands={[CommandType.StateActionComplete]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
   />
 )
 
@@ -90,6 +134,9 @@ export const SagaOff = () => (
     onClose={() => {}}
     setHiddenCommands={() => {}}
     hiddenCommands={[CommandType.SagaTaskComplete]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
   />
 )
 
@@ -99,6 +146,9 @@ export const SubscriptionOff = () => (
     onClose={() => {}}
     setHiddenCommands={() => {}}
     hiddenCommands={[CommandType.StateValuesChange]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
   />
 )
 
@@ -119,5 +169,8 @@ export const AllOff = () => (
       CommandType.SagaTaskComplete,
       CommandType.StateValuesChange,
     ]}
+    availableStatusCategories={[]}
+    hiddenStatusCategories={[]}
+    setHiddenStatusCategories={() => {}}
   />
 )
