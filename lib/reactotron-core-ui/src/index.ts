@@ -9,6 +9,7 @@ import Header from "./components/Header"
 import Modal from "./components/Modal"
 import RandomJoke from "./components/RandomJoke"
 import ReactotronAppProvider from "./components/ReactotronAppProvider"
+import StatusCodeTag from "./components/StatusCodeTag"
 import TimelineCommand from "./components/TimelineCommand"
 import TimelineCommandTabButton from "./components/TimelineCommandTabButton"
 import Timestamp from "./components/Timestamp"
@@ -34,7 +35,7 @@ import timelineCommandResolver from "./timelineCommands"
 
 // Utils
 import repairSerialization from "./utils/repair-serialization"
-import filterCommands from "./utils/filterCommands"
+import filterCommands, { getAvailableStatusCategories } from "./utils/filterCommands"
 
 export {
   // Contexts
@@ -45,6 +46,7 @@ export {
   DispatchActionModal,
   EmptyState,
   filterCommands,
+  getAvailableStatusCategories,
   Header,
   Modal,
   RandomJoke,
@@ -57,6 +59,7 @@ export {
   SnapshotRenameModal,
   StateContext,
   StateProvider,
+  StatusCodeTag,
   SubscriptionAddModal,
   themes,
   TimelineCommand,

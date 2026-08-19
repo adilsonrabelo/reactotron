@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react"
 
 import type { CommandTypeKey } from "reactotron-core-contract"
 
+import type { StatusCategory } from "../../components/StatusCodeTag"
 import useTimeline from "./useTimeline"
 
 interface Context {
@@ -18,6 +19,8 @@ interface Context {
   toggleReverse: () => void
   hiddenCommands: CommandTypeKey[]
   setHiddenCommands: (commandTypes: CommandTypeKey[]) => void
+  hiddenStatusCategories: StatusCategory[]
+  setHiddenStatusCategories: (statusCategories: StatusCategory[]) => void
 }
 
 const TimelineContext = React.createContext<Context>({
@@ -34,6 +37,8 @@ const TimelineContext = React.createContext<Context>({
   toggleReverse: null,
   hiddenCommands: [],
   setHiddenCommands: null,
+  hiddenStatusCategories: [],
+  setHiddenStatusCategories: null,
 })
 
 const Provider: FunctionComponent<any> = ({ children }) => {
@@ -51,6 +56,8 @@ const Provider: FunctionComponent<any> = ({ children }) => {
     toggleReverse,
     hiddenCommands,
     setHiddenCommands,
+    hiddenStatusCategories,
+    setHiddenStatusCategories,
   } = useTimeline()
 
   return (
@@ -69,6 +76,8 @@ const Provider: FunctionComponent<any> = ({ children }) => {
         toggleReverse,
         hiddenCommands,
         setHiddenCommands,
+        hiddenStatusCategories,
+        setHiddenStatusCategories,
       }}
     >
       {children}

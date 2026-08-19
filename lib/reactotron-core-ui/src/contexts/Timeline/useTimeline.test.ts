@@ -8,6 +8,7 @@ describe("contexts/Timline/useTimeline", () => {
   beforeEach(() => {
     localStorage.removeItem(StorageKey.ReversedOrder)
     localStorage.removeItem(StorageKey.HiddenCommands)
+    localStorage.removeItem(StorageKey.HiddenStatusCategories)
   })
 
   describe("Initial Settings", () => {
@@ -45,6 +46,20 @@ describe("contexts/Timline/useTimeline", () => {
       const { result } = renderHook(() => useTimline())
 
       expect(result.current.hiddenCommands).toEqual(["test"])
+    })
+
+    it("should default to no hidden status categories", () => {
+      const { result } = renderHook(() => useTimline())
+
+      expect(result.current.hiddenStatusCategories).toEqual([])
+    })
+
+    it("should have saved hidden status categories", () => {
+      localStorage.setItem(StorageKey.HiddenStatusCategories, JSON.stringify(["clientError"]))
+
+      const { result } = renderHook(() => useTimline())
+
+      expect(result.current.hiddenStatusCategories).toEqual(["clientError"])
     })
   })
 
@@ -131,6 +146,19 @@ describe("contexts/Timline/useTimeline", () => {
         JSON.stringify([CommandType.ClientIntro])
       )
       expect(result.current.hiddenCommands).toEqual([CommandType.ClientIntro])
+    })
+
+    it("should set hidden status categories", () => {
+      const { result } = renderHook(() => useTimline())
+
+      expect(result.current.hiddenStatusCategories).toEqual([])
+      act(() => {
+        result.current.setHiddenStatusCategories(["clientError", "serverError"])
+      })
+      expect(localStorage.getItem(StorageKey.HiddenStatusCategories)).toEqual(
+        JSON.stringify(["clientError", "serverError"])
+      )
+      expect(result.current.hiddenStatusCategories).toEqual(["clientError", "serverError"])
     })
   })
 })

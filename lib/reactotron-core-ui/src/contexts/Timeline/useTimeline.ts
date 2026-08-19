@@ -1,10 +1,12 @@
 import { useReducer, useEffect } from "react"
 
 import type { CommandTypeKey } from "reactotron-core-contract"
+import type { StatusCategory } from "../../components/StatusCodeTag"
 
 export enum StorageKey {
   ReversedOrder = "ReactotronTimelineReversedOrder",
   HiddenCommands = "ReactotronTimelineHiddenCommands",
+  HiddenStatusCategories = "ReactotronTimelineHiddenStatusCategories",
 }
 
 interface TimelineState {
@@ -13,6 +15,7 @@ interface TimelineState {
   isFilterOpen: boolean
   isReversed: boolean
   hiddenCommands: CommandTypeKey[]
+  hiddenStatusCategories: StatusCategory[]
 }
 
 enum TimelineActionType {
@@ -24,6 +27,7 @@ enum TimelineActionType {
   OrderReverse = "ORDER_REVERSE",
   OrderRegular = "ORDER_REGULAR",
   HiddenCommandsSet = "HIDDENCOMMANDS_SET",
+  HiddenStatusCategoriesSet = "HIDDENSTATUSCATEGORIES_SET",
 }
 
 type Action =
@@ -44,6 +48,10 @@ type Action =
       type: TimelineActionType.HiddenCommandsSet
       payload: CommandTypeKey[]
     }
+  | {
+      type: TimelineActionType.HiddenStatusCategoriesSet
+      payload: StatusCategory[]
+    }
 
 function timelineReducer(state: TimelineState, action: Action) {
   switch (action.type) {
@@ -63,6 +71,8 @@ function timelineReducer(state: TimelineState, action: Action) {
       return { ...state, isReversed: false }
     case TimelineActionType.HiddenCommandsSet:
       return { ...state, hiddenCommands: action.payload }
+    case TimelineActionType.HiddenStatusCategoriesSet:
+      return { ...state, hiddenStatusCategories: action.payload }
     default:
       return state
   }
@@ -75,12 +85,16 @@ function useTimeline() {
     isFilterOpen: false,
     isReversed: false,
     hiddenCommands: [],
+    hiddenStatusCategories: [],
   })
 
   // Load some values
   useEffect(() => {
     const isReversed = localStorage.getItem(StorageKey.ReversedOrder) === "reversed"
     const hiddenCommands = JSON.parse(localStorage.getItem(StorageKey.HiddenCommands) || "[]")
+    const hiddenStatusCategories = JSON.parse(
+      localStorage.getItem(StorageKey.HiddenStatusCategories) || "[]"
+    )
 
     dispatch({
       type: isReversed ? TimelineActionType.OrderReverse : TimelineActionType.OrderRegular,
@@ -89,6 +103,11 @@ function useTimeline() {
     dispatch({
       type: TimelineActionType.HiddenCommandsSet,
       payload: hiddenCommands,
+    })
+
+    dispatch({
+      type: TimelineActionType.HiddenStatusCategoriesSet,
+      payload: hiddenStatusCategories,
     })
   }, [])
 
@@ -149,6 +168,15 @@ function useTimeline() {
     })
   }
 
+  const setHiddenStatusCategories = (hiddenStatusCategories: StatusCategory[]) => {
+    localStorage.setItem(StorageKey.HiddenStatusCategories, JSON.stringify(hiddenStatusCategories))
+
+    dispatch({
+      type: TimelineActionType.HiddenStatusCategoriesSet,
+      payload: hiddenStatusCategories,
+    })
+  }
+
   return {
     isSearchOpen: state.isSearchOpen,
     toggleSearch,
@@ -163,6 +191,8 @@ function useTimeline() {
     toggleReverse,
     hiddenCommands: state.hiddenCommands,
     setHiddenCommands,
+    hiddenStatusCategories: state.hiddenStatusCategories,
+    setHiddenStatusCategories,
   }
 }
 

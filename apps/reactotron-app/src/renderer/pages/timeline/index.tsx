@@ -7,6 +7,7 @@ import debounce from "lodash.debounce"
 import {
   Header,
   filterCommands,
+  getAvailableStatusCategories,
   TimelineFilterModal,
   timelineCommandResolver,
   EmptyState,
@@ -97,11 +98,15 @@ function Timeline() {
     isFilterOpen,
     hiddenCommands,
     setHiddenCommands,
+    hiddenStatusCategories,
+    setHiddenStatusCategories,
   } = useContext(TimelineContext)
+
+  const availableStatusCategories = useMemo(() => getAvailableStatusCategories(commands), [commands])
 
   let filteredCommands
   try {
-    filteredCommands = filterCommands(commands, search, hiddenCommands)
+    filteredCommands = filterCommands(commands, search, hiddenCommands, hiddenStatusCategories)
   } catch (error) {
     console.error(error)
     filteredCommands = commands
@@ -241,6 +246,9 @@ function Timeline() {
         }}
         hiddenCommands={hiddenCommands}
         setHiddenCommands={setHiddenCommands}
+        availableStatusCategories={availableStatusCategories}
+        hiddenStatusCategories={hiddenStatusCategories}
+        setHiddenStatusCategories={setHiddenStatusCategories}
       />
     </Container>
   )
